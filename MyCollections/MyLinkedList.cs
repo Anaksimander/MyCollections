@@ -112,6 +112,10 @@ namespace MyCollections
             Last = null;
             Count = 0;
         }
+        public MyLinkedList<T> Add(T value)
+        {
+            return AddLast(value);
+        }
         public MyLinkedList<T> RemoveFirst()
         {
             if(Count == 0)

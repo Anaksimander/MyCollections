@@ -6,7 +6,7 @@ namespace MyCollections
     {
         static void Main(string[] args)
         {
-            MyLinkedList<int> myList = new MyLinkedList<int>();
+            MyLinkedList<int> myList = new MyLinkedList<int>() {10,20,30};
 
             MyLinkedList<int>.MyLinkedListNode<int> node;
             myList.AddFirst(1);
