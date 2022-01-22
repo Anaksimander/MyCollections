@@ -17,6 +17,10 @@ namespace MyCollections
             {
                 Console.WriteLine(item);
             }
+
+            Console.WriteLine(myList.Find(2).Value);
+
+            myList.Clear();
             Console.Read();
         }
     }

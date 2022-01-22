@@ -10,18 +10,13 @@ namespace MyCollections
     class MyLinkedList<T> : IEnumerable<T>
     {
         public int Count { get; set; }
-        public MyLinkedListNode<T> First { get; set; }
-        public MyLinkedListNode<T> Last { get; set; }
+        public MyLinkedListNode<T> First { get; private set; }
+        public MyLinkedListNode<T> Last { get; private set; }
         public MyLinkedList()
         {
             Count = 0;
             First = null;
             Last = null;
-        }
-        public MyLinkedList<T>? AddAfter(MyLinkedListNode<T> node, T value)
-        {
-
-            return this;
         }
         public MyLinkedList<T> AddLast(T value)
         {
@@ -111,6 +106,12 @@ namespace MyCollections
             Count++;
             return this;
         }
+        public void Clear()
+        {
+            First = null;
+            Last = null;
+            Count = 0;
+        }
         public MyLinkedList<T> RemoveFirst()
         {
             if(Count == 0)
@@ -143,19 +144,27 @@ namespace MyCollections
         }
         public MyLinkedListNode<T>? Find(T value)
         {
-
+            MyLinkedListNode<T> node = First;
+            for (int i = 0; i < Count; i++)
+            {
+                if(node.Value.Equals(value))
+                {
+                    return node;
+                }
+                else
+                {
+                    node = node.Next;
+                }
+            }
             return null;
         }
-
         public IEnumerator<T> GetEnumerator(){
             return new MyLinkedListEnumeratorGeneral(this);
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new MyLinkedListEnumerator(this);
         }
-
         class MyLinkedListEnumeratorGeneral : IEnumerator<T>
         {
             private MyLinkedList<T> list;
@@ -214,7 +223,6 @@ namespace MyCollections
                 position = -1;
             }
         }
-
         class MyLinkedListEnumerator : IEnumerator
         {
             private MyLinkedList<T> list;
@@ -256,7 +264,6 @@ namespace MyCollections
                 position = -1;
             }
         }
-
         public class MyLinkedListNode<L>
         {
             public MyLinkedListNode<L> Next { get; set; }
