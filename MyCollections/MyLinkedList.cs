@@ -149,12 +149,113 @@ namespace MyCollections
 
         public IEnumerator<T> GetEnumerator()
         {
-            return 
+            return new MyLinkedListEnumeratorGeneral(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return new MyLinkedListEnumerator(this);
+        }
+
+        class MyLinkedListEnumeratorGeneral : IEnumerator<T>
+        {
+            private MyLinkedList<T> list;
+            private MyLinkedListNode<T> ENode;
+            int position = -1;
+            public MyLinkedListEnumeratorGeneral(MyLinkedList<T> list)
+            {
+                this.list = list;
+            }
+            public T Current
+            {
+                get
+                {
+                    if (position == -1 || position >= list.Count)
+                        throw new ArgumentException();
+                    return ENode.Value;
+                }
+            }
+            object IEnumerator.Current => throw new NotImplementedException();
+
+            public void Dispose()
+            {
+                
+                if (position == -1)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    position--;
+                    ENode = ENode.Previous;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                if (position == -1)
+                {
+                    position++;
+                    ENode = list.First;
+                    return true;
+                }
+                else
+                if (position < list.Count-1)
+                {
+                    position++;
+                    ENode = ENode.Next;
+                    return true;
+                }
+                else
+                    return false;
+            }
+            public void Reset()
+            {
+                ENode = null;
+                position = -1;
+            }
+        }
+
+        class MyLinkedListEnumerator : IEnumerator
+        {
+            private MyLinkedList<T> list;
+            private MyLinkedListNode<T> ENode;
+            int position = -1;
+            public MyLinkedListEnumerator(MyLinkedList<T> list) {
+                this.list = list;
+            }
+            
+            public object Current
+            {
+                get
+                {
+                    if (position == -1 || position > list.Count)
+                        throw new ArgumentException();
+                    return ENode.Value;
+                }
+            }
+            public bool MoveNext()
+            {
+                if(position == -1)
+                {
+                    ENode = list.First;
+                    return true;
+                }
+                else
+                if (position <= list.Count)
+                {
+                    position++;
+                    ENode = ENode.Next;
+                    return true;
+                }
+                else
+                    return false;
+            }
+            public void Reset()
+            {
+                ENode = null;
+                position = -1;
+            }
         }
 
         public class MyLinkedListNode<L>

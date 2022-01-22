@@ -12,6 +12,12 @@ namespace MyCollections
             myList.AddFirst(1);
             myList.AddFirst(2);
             myList.AddFirst(3);
+
+            foreach (var item in myList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.Read();
         }
     }
 }
