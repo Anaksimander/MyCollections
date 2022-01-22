@@ -147,8 +147,7 @@ namespace MyCollections
             return null;
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
+        public IEnumerator<T> GetEnumerator(){
             return new MyLinkedListEnumeratorGeneral(this);
         }
 
