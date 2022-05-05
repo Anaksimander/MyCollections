@@ -163,11 +163,18 @@ namespace MyCollections
             return null;
         }
         public IEnumerator<T> GetEnumerator(){
-            return new MyLinkedListEnumeratorGeneral(this);
+            //return new MyLinkedListEnumeratorGeneral(this);
+            var current = First;
+            if(First != null)
+                do{
+                    yield return current.Value;
+                    current = current.Next;
+                } while (current != First);
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new MyLinkedListEnumerator(this);
+            //return new MyLinkedListEnumerator(this);
+            return GetEnumerator();
         }
         class MyLinkedListEnumeratorGeneral : IEnumerator<T>
         {
